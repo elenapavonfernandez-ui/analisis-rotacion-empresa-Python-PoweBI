@@ -26,71 +26,53 @@ Por este motivo:
 ## 1️⃣ Carga de Datos
 
 ### Fuente
-- **Tipo de archivo:**  
-- **Nombre del archivo:**  
-- **Método de importación:**  
+- **Tipo de archivo:** CSV  
+- **Nombre del archivo:** `hr_data_clean.csv`  
+- **Método de importación:** Power BI Desktop → File → Get Data → Text/CSV → Transform Data
 
 ### Observaciones iniciales del dataset
-- **Número de columnas:**  
-- **Número de registros:**  
-- **Estado general de los datos:**  
+- **Número de columnas:**  ~XX  
+- **Número de registros:** 1252  
+- **Codificación:** Western European (Windows)  
+- **Separador:** Coma  
+- **Comentarios iniciales:** Power BI crea automáticamente una columna adicional para conteo de filas (`column 0`).
 
 ---
 
-## 2️⃣ Eliminación de Columnas
+## 2️⃣ Organización de Columnas
 
-> Se eliminarán únicamente columnas que no aporten valor analítico, sean redundantes o no estén alineadas con los objetivos del análisis.
-
-| Columna eliminada | Motivo de eliminación |
-|-------------------|-----------------------|
-|                   |                       |
-|                   |                       |
+- Se movió la columna `employeenumber` al inicio del dataset.  
+- Se trasladaron todas las columnas con valores en `$` al final del dataset para mayor claridad en dashboards.  
 
 ---
 
-## 3️⃣ Cambio de Tipos de Datos
+## 3️⃣ Cambio de Valores y Renombrado de Columnas
 
-> Ajustes realizados para garantizar coherencia numérica, correcta agregación y precisión en el modelo.
-
-| Columna | Tipo original | Nuevo tipo | Motivo |
-|----------|--------------|------------|--------|
-|          |              |            |        |
-
----
-
-## 4️⃣ Renombrado de Columnas
-
-> Se renombraron columnas para mejorar la claridad en los dashboards y facilitar la interpretación por parte del cliente.
-
-| Nombre original | Nuevo nombre | Justificación |
-|-----------------|--------------|---------------|
-|                 |              |               |
-|                 |              |               |
+| Nombre original      | Nuevo nombre       | Transformación / Justificación                     |
+|---------------------|------------------|--------------------------------------------------|
+| `attrition`         | `employee status` | `yes → ex-employee`, `no → employee`           |
+| `remote work`       | `workplace`       | Tipo de dato cambiado a **text**, `true → remote`, `false → on-site` |
+| `standard hours`    | `workinghours`    | Cambio de nombre para mayor claridad            |
 
 ---
 
-## 5️⃣ Transformaciones Adicionales
+## 4️⃣ Eliminación de Columnas
 
-> Cualquier transformación adicional realizada en Power Query será documentada en esta sección.
+> Columnas eliminadas por no aportar valor analítico o contener casi ningún dato:
 
--  
--  
--  
-
----
-
-## 6️⃣ Notas Técnicas
-
-- Todas las transformaciones se realizan en **Power Query**.
-- No se modifican datos en el archivo de origen.
-- Se prioriza un modelo limpio y estructurado antes de la creación de medidas DAX.
-- El idioma del modelo y visualizaciones es **inglés**, alineado con el cliente final.
+| Columna             | Motivo de eliminación |
+|--------------------|----------------------|
+| `numberchildren`    | Sin datos            |
+| `yearsincurrentrole`| Pocos datos          |
+| `employeecount`     | No aporta valor      |
+| `over18`            | No aporta valor      |
+| `sameasmontlyincome`| Duplicada de `monthlyincome` |
 
 ---
 
-## 📌 Próximos Pasos
+## 5️⃣ Aplicación de Transformaciones
 
-- Documentación de medidas DAX.
-- Construcción del modelo relacional.
-- Desarrollo de dashboards ejecutivos.
-- Validación de métricas clave con enfoque de negocio.
+- Se aplicaron todos los cambios y se cerró Power Query (`Apply and Close`).  
+- Se cargó un tema de colores personalizado (`Json`) en **View → Browse for Themes**.  
+- Guardado inicial como: `dashboard_rotation_analysis.pbix`
+

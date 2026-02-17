@@ -76,3 +76,35 @@ Por este motivo:
 - Se cargó un tema de colores personalizado (`Json`) en **View → Browse for Themes**.  
 - Guardado inicial como: `dashboard_rotation_analysis.pbix`
 
+
+---
+
+## 6️⃣ Creación de Medidas DAX (Campos Calculados)
+
+> Se crearon las siguientes medidas para analizar la rotación (attrition) y los niveles de satisfacción dentro de la organización.
+
+---
+
+### 📌 Métricas de Rotación
+
+```DAX
+left company = 
+CALCULATE(
+    COUNTROWS('hr_data_clean'),
+    'hr_data_clean'[attrition] = "ex-employee"
+)```
+
+```DAX
+PT Left = 
+CALCULATE(
+    [Left Company],
+    'hr_data_clean'[workinghours] = "part time"
+)```
+
+```DAX
+% PT Left = 
+DIVIDE(
+    [PT Left],
+    [Left Company],
+    0
+)```
